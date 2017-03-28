@@ -33,14 +33,14 @@ type SimpleChaincode struct {
 func main() {
 	err := shim.Start(new(SimpleChaincode))
 	if err != nil {
-		fmt.Printf("Error starting Simple chaincode: %s", err)
+		fmt.Printf("MM-Error starting Simple chaincode: %s", err)
 	}
 }
 
 // Init resets all the things
 func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
 	if len(args) != 1 {
-		return nil, errors.New("Incorrect number of arguments. Expecting 1")
+		return nil, errors.New("MM-Incorrect number of arguments. Expecting 1")
 	}
 
 	return nil, nil
@@ -54,21 +54,21 @@ func (t *SimpleChaincode) Invoke(stub *shim.ChaincodeStub, function string, args
 	if function == "init" {													//initialize the chaincode state, used as reset
 		return t.Init(stub, "init", args)
 	}
-	fmt.Println("invoke did not find func: " + function)					//error
+	fmt.Println("MM-invoke did not find func: " + function)					//error
 
-	return nil, errors.New("Received unknown function invocation: " + function)
+	return nil, errors.New("MM-Received unknown function invocation: " + function)
 }
 
 // Query is our entry point for queries
 func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
-	fmt.Println("query is running " + function)
+	fmt.Println("MM-query is running " + function)
 
 	// Handle different functions
 	if function == "dummy_query" {											//read a variable
-		fmt.Println("hi there " + function)						//error
+		fmt.Println("MM-hi there " + function)						//error
 		return nil, nil;
 	}
-	fmt.Println("query did not find func: " + function)						//error
+	fmt.Println("MM-query did not find func: " + function)						//error
 
-	return nil, errors.New("Received unknown function query: " + function)
+	return nil, errors.New("MM-Received unknown function query: " + function)
 }
